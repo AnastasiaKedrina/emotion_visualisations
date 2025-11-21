@@ -1,12 +1,37 @@
 // 1) Загружаем JSON с Google Ngram через CORS-прокси
-async function loadNgram() {
-    const ngramUrl = "https://books.google.com/ngrams/json?content=emotional+intelligence&year_start=1800&year_end=2019&corpus=26&smoothing=3";
-    const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(ngramUrl);
+// async function loadNgram() {
+//     const ngramUrl = "https://books.google.com/ngrams/json?content=emotional+intelligence&year_start=1800&year_end=2019&corpus=26&smoothing=3";
+//     const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(ngramUrl);
 
-    const response = await fetch(proxyUrl);
+//     const response = await fetch(proxyUrl);
+//     const data = await response.json();
+
+// // --- ОТЛАДКА ---
+//     console.log("Полные данные Ngram:", data);
+//     if (data.length === 0) {
+//         console.warn("Данные не найдены!");
+//         return [];
+//     }
+//     console.log("Количество записей:", data.length);
+//     console.log("Пример первой записи:", data[0]);
+//     console.log("Длина timeseries:", data[0].timeseries.length);
+//     console.log("Первые 10 значений timeseries:", data[0].timeseries.slice(0, 10));
+//     console.log("Годы:", data[0].timeseries.map((_, i) => i + 1800).slice(0, 10)); // пример первых лет
+
+//     return data;
+// }
+
+
+
+
+
+// 1) Загружаем JSON с локального файла
+async function loadNgram() {
+    const filePath = "ngram-data/emotional intelligence.json"; // файл должен быть в той же папке, что index.html
+    const response = await fetch(filePath);
     const data = await response.json();
 
-// --- ОТЛАДКА ---
+    // --- ОТЛАДКА ---
     console.log("Полные данные Ngram:", data);
     if (data.length === 0) {
         console.warn("Данные не найдены!");
@@ -20,6 +45,8 @@ async function loadNgram() {
 
     return data;
 }
+
+
 
 // 2) Three.js сцена
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.162/build/three.module.js';
