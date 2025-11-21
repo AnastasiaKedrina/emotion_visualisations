@@ -1,7 +1,11 @@
-// 1) Загружаем JSON с Google Ngram
+// 1) Загружаем JSON с Google Ngram через CORS-прокси
 async function loadNgram() {
-    const url = "https://books.google.com/ngrams/json?content=emotional+intelligence&year_start=1800&year_end=2019&corpus=26&smoothing=3";
-    const response = await fetch(url);
+    const ngramUrl = "https://books.google.com/ngrams/json?content=emotional+intelligence&year_start=1800&year_end=2019&corpus=26&smoothing=3";
+
+    // Используем allorigins.win как прокси
+    const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(ngramUrl);
+
+    const response = await fetch(proxyUrl);
     const data = await response.json();
 
     // --- ОТЛАДКА ---
