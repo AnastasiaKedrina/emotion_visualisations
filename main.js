@@ -6,11 +6,17 @@ async function loadNgram() {
     const response = await fetch(proxyUrl);
     const data = await response.json();
 
+// --- ОТЛАДКА ---
     console.log("Полные данные Ngram:", data);
     if (data.length === 0) {
         console.warn("Данные не найдены!");
         return [];
     }
+    console.log("Количество записей:", data.length);
+    console.log("Пример первой записи:", data[0]);
+    console.log("Длина timeseries:", data[0].timeseries.length);
+    console.log("Первые 10 значений timeseries:", data[0].timeseries.slice(0, 10));
+    console.log("Годы:", data[0].timeseries.map((_, i) => i + 1800).slice(0, 10)); // пример первых лет
 
     return data;
 }
@@ -62,7 +68,7 @@ function animate() {
     requestAnimationFrame(animate);
 
     // вращаем сцену вокруг Y
-    scene.rotation.y += 0.002;
+    // scene.rotation.y += 0.002;
 
     renderer.render(scene, camera);
 }
